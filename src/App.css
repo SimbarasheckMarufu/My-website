@@ -1,6 +1,75 @@
 #root {
   width: 100%;
+  overflow-x: clip;
+}
+
+.home-motion-background {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
   overflow: hidden;
+  opacity: .196;
+  pointer-events: none;
+}
+
+.home-motion-background .hero-art {
+  width: 100vw;
+  height: 100svh;
+  max-height: none;
+  aspect-ratio: auto;
+  border: 0;
+  background: transparent;
+}
+
+.home-motion-background .art-grid {
+  opacity: .18;
+}
+
+.home-motion-background .globe {
+  opacity: 1;
+  filter: saturate(.72) brightness(.82);
+}
+
+.home-motion-background .art-orbit,
+.home-motion-background .art-orbit-two,
+.home-motion-background .art-orbit-three {
+  border-width: 2px;
+  border-color: rgba(255, 24, 42, .98);
+  box-shadow:
+    0 0 9px rgba(255, 14, 35, .9),
+    0 0 25px rgba(255, 14, 35, .72),
+    0 0 52px rgba(255, 14, 35, .45),
+    inset 0 0 12px rgba(255, 14, 35, .34);
+}
+
+.home-motion-background .art-orbit-two {
+  border-color: rgba(255, 54, 68, .94);
+}
+
+.home-motion-background .art-orbit-three {
+  border-color: rgba(255, 105, 113, .96);
+}
+
+.home-motion-background .art-orbit i {
+  background: #ff2035;
+  box-shadow: 0 0 15px 6px rgba(255, 20, 40, .95), 0 0 30px 10px rgba(255, 20, 40, .55);
+}
+
+.home-motion-background .art-orbit-two i,
+.home-motion-background .art-orbit-three i {
+  background: #ff525f;
+  box-shadow: 0 0 14px 5px rgba(255, 34, 51, .92), 0 0 28px 8px rgba(255, 34, 51, .5);
+}
+
+.home-motion-background .orbit-satellite {
+  background: #ff3547;
+  box-shadow: 0 0 13px 5px rgba(255, 22, 43, .95), 0 0 25px 9px rgba(255, 22, 43, .6);
+}
+
+.home-motion-background .art-coordinate,
+.home-motion-background .art-index,
+.home-motion-background .art-crosshair {
+  display: none;
 }
 
 .site-header,
@@ -2964,5 +3033,654 @@
   .workstation,
   .floating-chip {
     animation: none !important;
+  }
+}
+
+/* Improve readability for small supporting text while keeping decorative artwork subtle. */
+.navigation,
+.text-link,
+.hero-description,
+.studio-copy p,
+.services-intro,
+.service-row p,
+.service-detail-copy li,
+.service-description,
+.service-technologies p,
+.service-technologies small,
+.service-technologies > span,
+.trust-card p,
+.trust-card > span,
+.tech-stack span,
+.service-back-link,
+.service-page-description > p:not(.section-kicker),
+.service-outcomes li,
+.plan-intro,
+.plan-points li,
+.plan-table tbody th,
+.plan-table td,
+.plan-table thead th,
+.service-not-found > p:not(.section-kicker),
+.site-footer p,
+.footer-contact a,
+.service-photo-caption,
+.art-coordinate,
+.art-index,
+.project-number,
+.contact-link,
+.contact-form label,
+.form-note {
+  font-size: 13px;
+}
+
+.section-kicker {
+  font-size: 14px;
+}
+
+.eyebrow,
+.hero-meta {
+  font-size: 12px;
+}
+
+.project-card .project-art {
+  isolation: isolate;
+  position: relative;
+  min-height: 0;
+  display: block;
+  aspect-ratio: 1.08 / 1;
+  overflow: hidden;
+  background-color: #151414;
+  background-image:
+    linear-gradient(180deg, rgba(8, 8, 8, .3) 0%, rgba(8, 8, 8, .48) 42%, rgba(8, 8, 8, .94) 100%),
+    var(--service-image);
+  background-position: center;
+  background-size: cover;
+  transition: filter 200ms ease, transform 300ms ease;
+}
+
+.project-card .project-art::before,
+.project-card .project-art::after {
+  content: none;
+}
+
+.project-card:hover .project-art {
+  filter: brightness(1.12);
+  transform: translateY(-4px);
+}
+
+.project-card .project-info {
+  position: absolute;
+  z-index: 1;
+  inset: auto 22px 22px;
+  gap: 8px;
+}
+
+.project-card .project-info h3 {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 800;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, .9);
+}
+
+.project-card .project-info p {
+  max-width: 390px;
+  color: #f1eeed;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.65;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, .95);
+}
+
+.project-card .project-open {
+  z-index: 1;
+  top: 16px;
+  right: 16px;
+  bottom: auto;
+  width: 38px;
+  height: 38px;
+  background: rgba(9, 9, 9, .68);
+}
+
+.project-card .project-open .arrow-icon {
+  width: 19px;
+  height: 19px;
+}
+
+.back-to-top {
+  position: fixed;
+  z-index: 20;
+  right: 26px;
+  bottom: 82px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  min-height: 42px;
+  padding: 0;
+  border: 1px solid rgba(241, 39, 53, .72);
+  color: #fff;
+  background: rgba(18, 16, 16, .94);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, .42);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 160ms ease, transform 160ms ease;
+}
+
+.back-to-top span {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.back-to-top:hover {
+  color: #fff;
+  background: #b91926;
+  transform: translateY(-2px);
+}
+
+.back-to-top svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.7;
+}
+
+@media (max-width: 640px) {
+  .project-card .project-art {
+    aspect-ratio: 1.24 / 1;
+  }
+
+  .project-card .project-info {
+    inset: auto 17px 17px;
+  }
+
+  .project-card .project-info h3 {
+    font-size: 19px;
+  }
+
+  .project-card .project-info p {
+    font-size: 14px;
+  }
+
+  .back-to-top {
+    right: 16px;
+    bottom: 82px;
+  }
+
+  .service-page-hero-content > p:not(.section-kicker),
+  .page-intro > p:not(.section-kicker),
+  .service-description,
+  .service-detail-copy li,
+  .service-page-description > p:not(.section-kicker),
+  .plan-intro,
+  .plan-points li,
+  .plan-table tbody th,
+  .plan-table td,
+  .form-note {
+    font-size: 14px;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .home-motion-background {
+    opacity: .126;
+  }
+
+  .home-motion-background .hero-art {
+    background: transparent;
+  }
+
+  .home-motion-background .globe {
+    opacity: 1;
+  }
+
+  #root {
+    color: var(--text);
+    background: var(--bg);
+  }
+
+  .site-header {
+    border-color: var(--line);
+    background: rgba(247, 246, 244, .9);
+  }
+
+  .wordmark-symbol {
+    border: 0;
+    color: #fff;
+    background: var(--red);
+  }
+
+  .navigation,
+  .eyebrow,
+  .hero-description,
+  .hero-meta,
+  .project-info p,
+  .studio-copy > p:not(.section-kicker),
+  .services-intro,
+  .service-row p,
+  .service-row-link,
+  .trust-card p,
+  .service-detail-copy .service-description,
+  .service-detail-copy li,
+  .service-technologies p,
+  .service-technologies small,
+  .service-technologies > span,
+  .page-intro > p:not(.section-kicker),
+  .contact-details > p:not(.section-kicker),
+  .contact-detail-link,
+  .contact-detail-link span,
+  .contact-social-intro,
+  .service-page-description > p:not(.section-kicker),
+  .service-outcomes li,
+  .plan-intro,
+  .plan-points li,
+  .plan-table tbody th,
+  .plan-table td,
+  .plan-table thead th,
+  .service-not-found > p:not(.section-kicker),
+  .site-footer p,
+  .footer-contact a,
+  .form-note {
+    color: #38312e;
+  }
+
+  .navigation > a:not(.nav-contact):hover,
+  .back-to-top:hover {
+    color: var(--text);
+  }
+
+  .menu-toggle {
+    border-color: #c9c3bf;
+    background: transparent;
+  }
+
+  @media (max-width: 640px) {
+    .navigation {
+      border-color: var(--line);
+      background: #f7f6f4;
+    }
+
+    .navigation > a:not(.nav-contact) {
+      border-color: var(--line);
+    }
+  }
+
+  .hero-copy h1,
+  .section-heading h2,
+  .service-detail-copy h2,
+  .contact-details h2,
+  .contact-socials h2,
+  .service-page-description h2,
+  .plan-section h3,
+  .service-plan-heading h2,
+  .service-not-found h1 {
+    color: var(--text);
+  }
+
+  .outline-word {
+    -webkit-text-stroke-color: #282220;
+  }
+
+  .section-heading h2 span,
+  .studio-inner h2 span,
+  .showcase-copy h2 span,
+  .page-intro h1 span,
+  .closing-banner h2 span,
+  .service-plan-heading h2 span {
+    color: #554a46;
+  }
+
+  .work-section,
+  .services-section,
+  .trust-section,
+  .service-details,
+  .service-page-content,
+  .service-plan,
+  .service-page-next,
+  .closing-banner {
+    border-color: var(--line);
+  }
+
+  .studio-section {
+    border-color: var(--line);
+    background: linear-gradient(110deg, #f0eeec 0%, #f7f5f3 53%, #f5eded 100%);
+  }
+
+  .studio-watermark,
+  .showcase-watermark {
+    color: rgba(150, 25, 34, .06);
+  }
+
+  .showcase-section {
+    border-color: var(--line);
+    background: linear-gradient(115deg, #f1efed, #f6f1f0);
+  }
+
+  .workstation-glow {
+    opacity: .48;
+  }
+
+  .service-row,
+  .service-row:last-child {
+    border-color: var(--line);
+  }
+
+  .service-row h3 {
+    color: #292321;
+  }
+
+  .service-row:hover {
+    background: linear-gradient(90deg, rgba(190, 25, 38, .08), transparent 68%);
+  }
+
+  .trust-card {
+    border-color: rgba(190, 25, 38, .48);
+    background: linear-gradient(155deg, #fff, #f4f1ef);
+  }
+
+  .trust-card h3 {
+    color: #292321;
+  }
+
+  .tech-stack span {
+    border-color: #d7cecb;
+    color: #403632;
+    background: #f6f1ef;
+  }
+
+  .service-details .service-detail::after {
+    background: linear-gradient(90deg, #f7f6f4 0%, rgba(247, 246, 244, .94) 40%, rgba(247, 246, 244, .57) 100%);
+  }
+
+  .service-details .service-detail:nth-child(even)::after {
+    background: linear-gradient(270deg, #f7f6f4 0%, rgba(247, 246, 244, .94) 40%, rgba(247, 246, 244, .57) 100%);
+  }
+
+  .service-details .service-detail .service-visual {
+    opacity: .25;
+    filter: saturate(.72) brightness(.92);
+  }
+
+  .service-details .service-detail:hover .service-visual {
+    opacity: .34;
+  }
+
+  .service-technologies {
+    border-color: rgba(190, 25, 38, .6);
+    background: rgba(255, 255, 255, .86);
+  }
+
+  .service-page-hero {
+    border-color: var(--line);
+  }
+
+  .service-page-content,
+  .service-plan,
+  .service-page-next {
+    color: var(--text);
+  }
+
+  .service-outcomes,
+  .plan-included {
+    border-color: #ded3d1;
+    border-top-color: rgba(190, 25, 38, .68);
+    background: linear-gradient(145deg, #fff, #f2efed);
+  }
+
+  .plan-table th,
+  .plan-table td,
+  .plan-section {
+    border-color: var(--line);
+  }
+
+  .plan-table tbody th {
+    color: #292321;
+  }
+
+  .next-service-link {
+    border-color: #d8cfcc;
+    color: #292321;
+    background: rgba(255, 255, 255, .82);
+  }
+
+  .next-service-link:hover {
+    border-color: rgba(190, 25, 38, .58);
+    background: #fbf1f0;
+  }
+
+  .contact-section {
+    border-color: var(--line);
+    background: linear-gradient(130deg, #f0eeec, #f5efee);
+  }
+
+  .contact-link {
+    color: #38312e;
+  }
+
+  .contact-socials {
+    border-color: #ded3d1;
+    border-top-color: var(--red);
+    background: linear-gradient(145deg, #fff, #f2efed);
+  }
+
+  .contact-social-links a {
+    border-color: #ded3d1;
+    color: #292321;
+    background: rgba(255, 255, 255, .8);
+  }
+
+  .contact-social-links a:hover {
+    background: rgba(190, 25, 38, .06);
+  }
+
+  .contact-form {
+    border-color: #ded3d1;
+    background: linear-gradient(145deg, #fff, #f2efed);
+  }
+
+  .contact-form label {
+    color: #403936;
+  }
+
+  .contact-form input,
+  .contact-form select,
+  .contact-form textarea {
+    border-color: #cfc7c3;
+    color: #292321;
+    background: #fff;
+  }
+
+  .contact-form input::placeholder,
+  .contact-form textarea::placeholder,
+  .contact-form select:invalid {
+    color: #594f4b;
+  }
+
+  .contact-form select option {
+    color: #292321;
+    background: #fff;
+  }
+
+  .optional-label {
+    color: #4a423f;
+  }
+
+  .back-to-top {
+    border-color: rgba(190, 25, 38, .65);
+    color: #292321;
+    background: rgba(255, 255, 255, .96);
+  }
+
+  .back-to-top:hover {
+    color: #fff;
+  }
+
+  .section-kicker,
+  .wordmark-period,
+  .red-period,
+  .text-link .arrow-icon,
+  .contact-link .arrow-icon,
+  .service-row > span,
+  .service-row-link:hover,
+  .service-technologies > span,
+  .trust-card > span,
+  .service-outcomes li span,
+  .service-back-link .arrow-icon {
+    color: #b51220;
+  }
+
+  .navigation,
+  .eyebrow,
+  .hero-description,
+  .hero-meta,
+  .studio-copy > p:not(.section-kicker),
+  .services-intro,
+  .service-row p,
+  .trust-card p,
+  .service-detail-copy .service-description,
+  .service-detail-copy li,
+  .service-technologies p,
+  .service-technologies small,
+  .page-intro > p:not(.section-kicker),
+  .contact-details > p:not(.section-kicker),
+  .contact-detail-link,
+  .contact-detail-link span,
+  .contact-social-intro,
+  .service-page-description > p:not(.section-kicker),
+  .service-outcomes li,
+  .plan-intro,
+  .plan-points li,
+  .plan-table tbody th,
+  .plan-table td,
+  .plan-table thead th,
+  .service-not-found > p:not(.section-kicker),
+  .site-footer p,
+  .footer-contact a,
+  .form-note,
+  .text-link,
+  .contact-link,
+  .service-back-link,
+  .next-service-link {
+    color: #36302e;
+  }
+
+  .site-footer {
+    border-color: var(--line);
+  }
+}
+
+.page-transition {
+  position: relative;
+  z-index: 1;
+  animation: page-enter 650ms cubic-bezier(.2, .7, .2, 1) both;
+}
+
+.site-footer {
+  position: relative;
+  z-index: 1;
+}
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 650ms ease, transform 650ms cubic-bezier(.2, .7, .2, 1);
+}
+
+.scroll-reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-card:nth-child(2),
+.trust-card:nth-child(2),
+.service-page-next-links .next-service-link:nth-child(2) {
+  transition-delay: 90ms;
+}
+
+.project-card:nth-child(3),
+.trust-card:nth-child(3),
+.service-page-next-links .next-service-link:nth-child(3) {
+  transition-delay: 180ms;
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-transition {
+    animation: none;
+  }
+
+  .scroll-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .navigation,
+  .eyebrow,
+  .hero-description,
+  .hero-meta,
+  .studio-copy > p:not(.section-kicker),
+  .services-intro,
+  .service-row p,
+  .service-detail-copy .service-description,
+  .service-detail-copy li,
+  .service-technologies p,
+  .service-technologies small,
+  .service-technologies > span,
+  .trust-card p,
+  .trust-card > span,
+  .tech-stack span,
+  .service-back-link,
+  .service-page-description > p:not(.section-kicker),
+  .service-outcomes li,
+  .plan-intro,
+  .plan-points li,
+  .plan-table tbody th,
+  .plan-table td,
+  .plan-table thead th,
+  .service-not-found > p:not(.section-kicker),
+  .site-footer p,
+  .footer-contact a,
+  .contact-details > p:not(.section-kicker),
+  .contact-detail-link,
+  .contact-detail-link span,
+  .contact-social-intro,
+  .contact-form label,
+  .form-note {
+    color: #c1bbba;
+  }
+
+  .section-heading h2 span,
+  .studio-inner h2 span,
+  .showcase-copy h2 span,
+  .page-intro h1 span,
+  .closing-banner h2 span,
+  .service-plan-heading h2 span {
+    color: #aaa3a1;
+  }
+
+  .service-technologies small,
+  .form-note,
+  .footer-contact a,
+  .site-footer p {
+    color: #aaa3a1;
   }
 }

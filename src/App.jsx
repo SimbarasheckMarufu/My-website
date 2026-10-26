@@ -425,6 +425,7 @@ function ServicePlan({ service }) {
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [showBackToTop, setShowBackToTop] = useState(false)
   const [pathname, setPathname] = useState(window.location.pathname)
 
   useEffect(() => {
@@ -434,6 +435,43 @@ function App() {
     window.addEventListener('popstate', handlePopState)
     return () => window.removeEventListener('popstate', handlePopState)
   }, [])
+
+  useEffect(() => {
+    function handleScroll() {
+      setShowBackToTop(window.scrollY > 500)
+    }
+
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    const revealItems = document.querySelectorAll(
+      'main > section, main > .service-not-found, main .project-card, main .service-detail, main .service-row, main .trust-card, main .service-outcomes, main .plan-section, main .next-service-link',
+    )
+
+    if (!('IntersectionObserver' in window)) {
+      revealItems.forEach((item) => item.classList.add('scroll-reveal-visible'))
+      return undefined
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('scroll-reveal-visible')
+          observer.unobserve(entry.target)
+        }
+      })
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' })
+
+    revealItems.forEach((item) => {
+      item.classList.add('scroll-reveal')
+      observer.observe(item)
+    })
+
+    return () => observer.disconnect()
+  }, [pathname])
 
   function navigate(event, href) {
     if (event) {
@@ -460,6 +498,7 @@ function App() {
   const isServices = pathname === '/services'
   const isContact = pathname === '/contact'
   const isQuote = pathname === '/get-quote'
+  const isHome = pathname === '/'
   const serviceSlug = pathname.startsWith('/services/') ? pathname.slice('/services/'.length) : ''
   const selectedServicePage = services.find((service) => service.slug === serviceSlug)
   const isServiceDetail = Boolean(serviceSlug)
@@ -504,6 +543,11 @@ function App() {
   return (
     <>
       <div aria-hidden="true" className="ambient-background"><span /><span /><span /></div>
+      {isHome && (
+        <div aria-hidden="true" className="home-motion-background">
+          <GlobeVisual />
+        </div>
+      )}
       <header className="site-header">
         <Brand onNavigate={navigate} />
         <button aria-expanded={menuOpen} aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'} className={`menu-toggle${menuOpen ? ' is-open' : ''}`} onClick={() => setMenuOpen(!menuOpen)} type="button">
@@ -518,6 +562,7 @@ function App() {
         </nav>
       </header>
 
+      <div className="page-transition" key={pathname}>
       {isServices ? (
         <main>
           <section className="page-intro section-wrap">
@@ -586,7 +631,7 @@ function App() {
           <section className="service-page-next section-wrap">
             <p className="section-kicker">More from Atom Technologies</p>
             <div className="service-page-next-links">
-              {services.filter((service) => service.slug !== selectedServicePage.slug).slice(0, 2).map((service) => pageLink(`/services/${service.slug}`, <>{service.title}<ArrowIcon diagonal /></>, 'next-service-link', service.slug))}
+              {services.filter((service) => service.slug !== selectedServicePage.slug).map((service) => pageLink(`/services/${service.slug}`, <>{service.title}<ArrowIcon diagonal /></>, 'next-service-link', service.slug))}
             </div>
           </section>
         </main>
@@ -669,10 +714,8 @@ function App() {
               <h1 id="hero-title">IDEAS<br /><span className="outline-word">TO LIFE</span><span className="red-period">.</span></h1>
               <div className="hero-bottom">
                 <p className="hero-description">We bring your ideas to life</p>
-                {pageLink('/get-quote#quote', <>Get Quote for Free <ArrowIcon /></>, 'quote-button')}
               </div>
             </div>
-            <GlobeVisual />
             <div className="hero-meta"><span>Scroll to explore</span><span className="meta-line" /><span>Harare, Zimbabwe<span className="red-period">.</span></span></div>
           </section>
 
@@ -682,10 +725,12 @@ function App() {
               {pageLink('/services', <>View all services <ArrowIcon diagonal /></>, 'text-link desktop-link')}
             </div>
             <div className="project-grid">
-              {services.slice(0, 3).map((service) => (
+              {services.map((service) => (
                 <a className="project-card" href={`/services/${service.slug}`} key={service.number} onClick={(event) => navigate(event, `/services/${service.slug}`)}>
-                  <ServiceVisual type={service.visual} />
-                  <div className="project-info"><h3>{service.title}</h3><p>{service.summary}</p></div>
+                  <div className="project-art" style={{ '--service-image': `url("${service.image}")` }}>
+                    <div className="project-info"><h3>{service.title}</h3><p>{service.summary}</p></div>
+                    <span aria-hidden="true" className="project-open"><ArrowIcon diagonal /></span>
+                  </div>
                 </a>
               ))}
             </div>
@@ -739,12 +784,19 @@ function App() {
           </section>
         </main>
       )}
+      </div>
 
       <footer className="site-footer">
         <Brand footer onNavigate={navigate} />
         <p>We bring your ideas to life. © 2026 Atom Technologies.</p>
         <div className="footer-contact"><a href="mailto:simbarasheckmarufu@gmail.com">Email us</a><a href="tel:+263713597242">Call us</a></div>
       </footer>
+      {showBackToTop && (
+        <button className="back-to-top" type="button" aria-label="Scroll to the top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          <svg aria-hidden="true" fill="none" viewBox="0 0 20 20"><path d="M10 16V4m-5 5 5-5 5 5" /></svg>
+          <span>Back to top</span>
+        </button>
+      )}
     </>
   )
 }

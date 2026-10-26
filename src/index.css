@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
 
 :root {
+  color-scheme: dark;
   font-family: 'Manrope', 'Segoe UI', sans-serif;
   color: #f3f1ef;
   background: #090909;
@@ -14,10 +15,25 @@
   --bg: #090909;
   --surface: #111111;
   --text: #f3f1ef;
-  --muted: #85817f;
+  --muted: #aaa5a2;
   --red: #f12735;
   --line: #292727;
   --mono: 'DM Mono', Consolas, monospace;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+    color: #201c1b;
+    background: #f7f6f4;
+
+    --bg: #f7f6f4;
+    --surface: #fff;
+    --text: #201c1b;
+    --muted: #4a423f;
+    --red: #bd1523;
+    --line: #dedad7;
+  }
 }
 
 * {
@@ -33,6 +49,7 @@ html {
 body {
   min-width: 320px;
   margin: 0;
+  background: var(--bg);
 }
 
 body,
